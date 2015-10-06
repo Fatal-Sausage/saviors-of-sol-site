@@ -26,6 +26,6 @@ Some Notes
 ----------  
 * Ruby version 2.2.0, Rails version 4.2
   
-* The API key is set to read from and environemt variable named `BUNGIE_API_KEY`  
+* The API key is set to read from an environemt variable named `BUNGIE_API_KEY`  
   
 * Get an API key [here](https://www.bungie.net/en/User/API)  
