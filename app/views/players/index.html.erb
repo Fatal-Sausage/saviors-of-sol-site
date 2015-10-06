@@ -1,0 +1,23 @@
+<h4>Players</h4>
+
+<% if @players %>
+<ul>
+  <% @players.each do |p| %>
+    <li><%= link_to p["displayName"], player_path(p["membershipId"]) %></a></li>
+  <% end %>
+</ul>
+<% else %>
+  <h3>Search For Your Gamertag</h3>
+<% end %>
+<div>
+  <input id="gamertag-input" type="text">
+  <button id="gamertag-search">Search</button>
+</div>
+
+<!-- Super simple script for searching -->
+<script>
+  $("#gamertag-search").on("click", function(){
+    window.location.href = "/?gamertag=" + $("#gamertag-input").val();
+  });
+</script>
+

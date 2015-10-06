@@ -2,7 +2,7 @@ class Weapon < ActiveRecord::Base
 
   # We are taking some methods from this module
   # It's defined in app/modes/concerns/bungie_readable.rb
-  extend BungieReadable
+  include BungieReadable
 
   # This allows us to access a weapons attributes
   #eq. weapon.name => "Gdallarhorn"

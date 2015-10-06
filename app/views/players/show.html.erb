@@ -1,0 +1,10 @@
+<h4>Is this your gamertag?</h4>
+
+<div>
+  <% @player["destinyAccounts"].each do |d| %>
+    <% d["characters"].each do |c| %>
+      <p>LVL <%= c["level"] %> <%= c["race"]["raceName"] %> <%= c["gender"]["genderName"] %> <%= c["characterClass"]["className"] %></p>
+      <p><img src="http://www.bungie.net/<%= c["emblemPath"] %>"><p>
+    <% end %>
+  <% end %>
+</div>
