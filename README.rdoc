@@ -1,28 +1,19 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To get up and running:
 
-Things you may want to cover:
+Clone this repository
+`git clone <this repo>`
 
-* Ruby version
+Navigate to the project root and run
+`bundle install`
+to install required gems
 
-* System dependencies
+Start the rails server with
+`rails s`
 
-* Configuration
+And go to 127.0.0.1:3000 in a browser
 
-* Database creation
+* Ruby version 2.2.0
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* There is currently no database set up, so don't worry about that for now. If we do implement one, it will be a MySQL2 DB
