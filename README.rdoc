@@ -3,14 +3,14 @@
 To get up and running:
 
 Clone this repository
-`git clone <this repo>`
+```git clone <this repo>```
 
 Navigate to the project root and run
-`bundle install`
+```bundle install```
 to install required gems
 
 Start the rails server with
-`rails s`
+```rails s```
 
 And go to 127.0.0.1:3000 in a browser
 
