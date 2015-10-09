@@ -1,18 +1,20 @@
 <h4>Players</h4>
 
-<% if @players %>
+<% if @player %>
+Characters: <%= @player.characters.inspect %>
 <ul>
-  <% @players.each do |p| %>
-    <li><%= link_to p["displayName"], player_path(p["membershipId"]) %></a></li>
-  <% end %>
+  <li><%= @player.display_name %></li>
+  <li><%= @player.icon_path %></li>
+  <li><%= @player.membership_id %></li>
+  <li><%= @player.membership_type %></li>
 </ul>
 <% else %>
   <h3>Search For Your Gamertag</h3>
-<% end %>
 <div>
   <input id="gamertag-input" type="text"> <input type="radio" name="platform" value="1"> XBL <input type="radio" name="platform" value="2"> PSN
   <button id="gamertag-search">Search</button>
 </div>
+<% end %>
 
 <!-- Super simple script for searching -->
 <script>
