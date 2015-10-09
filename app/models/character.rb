@@ -24,6 +24,4 @@ class Character
     @race = @@hashes[race.to_s]
     @sex = @@hashes[sex.to_s]
   end
-
-
 end
