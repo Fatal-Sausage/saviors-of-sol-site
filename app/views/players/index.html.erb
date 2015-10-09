@@ -10,14 +10,13 @@
   <h3>Search For Your Gamertag</h3>
 <% end %>
 <div>
-  <input id="gamertag-input" type="text">
+  <input id="gamertag-input" type="text"> <input type="radio" name="platform" value="1"> XBL <input type="radio" name="platform" value="2"> PSN
   <button id="gamertag-search">Search</button>
 </div>
 
 <!-- Super simple script for searching -->
 <script>
   $("#gamertag-search").on("click", function(){
-    window.location.href = "/?gamertag=" + $("#gamertag-input").val();
+    window.location.href = "/?gamertag=" + $("#gamertag-input").val() + "&platform=" + $("input[name=platform]:checked").val();
   });
 </script>
-

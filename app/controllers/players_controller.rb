@@ -2,8 +2,9 @@ class PlayersController < ApplicationController
 
   def index
     if query = params[:gamertag]
-      page = params[:page] || 1
-      @players = Player.search_players(query, page)
+      # page = params[:page] || 1
+      # @players = Player.search_players(query, page)
+      @players = Destiny.search_for_player(params[:platform], params[:gamertag])
     end
   end
 
