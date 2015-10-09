@@ -1,13 +1,15 @@
 <h4>Players</h4>
 
 <% if @player %>
-Characters: <%= @player.characters.inspect %>
 <ul>
   <li><%= @player.display_name %></li>
   <li><%= @player.icon_path %></li>
   <li><%= @player.membership_id %></li>
   <li><%= @player.membership_type %></li>
 </ul>
+  <% @player.characters.each do |c| %>
+    <li><%= c.character_id %></li>
+  <% end %>
 <% else %>
   <h3>Search For Your Gamertag</h3>
 <div>
