@@ -4,7 +4,7 @@ class Player
   include BungieReadable
 
   @@player_search_url = "https://www.bungie.net/platform/User/SearchUsersPaged/" #searchTerm/page/
-  @@player_show_url = "https://www.bungie.net/platform/User/GetBungieAccount/" #membershipID/type/""
+  @@player_show_url = "https://www.bungie.net/platform/User/GetBungieAccount/" #membershipID/type/
 
   def self.format_search_url(search_term, page)
     URI.escape(@@player_search_url + "#{search_term}/#{page}/")

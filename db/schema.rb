@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006135505) do
+ActiveRecord::Schema.define(version: 20151006181910) do
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: ""
+    t.string   "encrypted_password",     limit: 255, default: "",  null: false
+    t.string   "gamertag",               limit: 255, default: "",  null: false
+    t.integer  "membership_id",          limit: 8,                 null: false
+    t.integer  "membership_type",        limit: 4,   default: 254, null: false
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          limit: 4,   default: 0,   null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+  end
+
+  add_index "users", ["gamertag"], name: "index_users_on_gamertag", unique: true, using: :btree
+  add_index "users", ["membership_id"], name: "index_users_on_membership_id", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "weapons", force: :cascade do |t|
     t.string  "name",        limit: 255

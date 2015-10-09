@@ -29,6 +29,9 @@ gem 'httparty'
 # Mysql2 adapter for database use
 gem 'mysql2', '~> 0.3.13'
 
+# Devise used for encrypting passwords and tracking user session/registrations
+gem 'devise'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

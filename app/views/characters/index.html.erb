@@ -1,0 +1,12 @@
+<h4>Characters For <%= @user.gamertag %></h4>
+
+<div>
+  <% @characters.each do |c| %>
+    <div>
+      <ul>
+        <li>Total Minutes Played: <%= c.minutes_played_total %></li>
+        <li>Power Level: <%= c.power_level %></li>
+      </ul>
+    </div>
+  <% end %>
+</div>

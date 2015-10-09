@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
 
+  devise_for :users
+
+  resources :players, only: [:index, :show]
   root 'players#index'
 
-  get 'players/:id' => 'players#show', as: :player
+  resources :characters, only: [:index, :show]
+  resources :inventories, only: [:show]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
