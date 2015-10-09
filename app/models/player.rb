@@ -15,9 +15,9 @@ class Player
 
   def getchars
     url = "#{@membership_type}/Account/#{@membership_id}"
-    data = ClassMethods.get_data_from_api(url)
+    data = get_data_from_api(url)
     characters = {}
-    img_base = "http://www.bungie.net/common/destiny_content/icons"
+    img_base = "http://www.bungie.net/"
     data["Response"]["data"]["characters"].each do |char|
       character_id = char["characterBase"]["characterId"]
       light_level = char["characterBase"]["powerLevel"]

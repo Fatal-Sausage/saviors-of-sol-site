@@ -1,34 +1,36 @@
-<h4>Players</h4>
-
-<% if @player %>
-<ul>
-  <li><%= @player.display_name %></li>
-  <li><%= @player.icon_path %></li>
-  <li><%= @player.membership_id %></li>
-  <li><%= @player.membership_type %></li>
-</ul>
-  <%#= @player.characters %>
-  <% @player.characters.each do |key, val| %>
-    <ul>
-      <li> <%= val.character_id %></li>
-        <ul>
-          <li> <%= val.light_level %></li>
-          <li> <img src="<%= val.background %>"></li>
-        </ul>
-      </li>
-    </ul>
-  <% end %>
-<% else %>
-  <h3>Search For Your Gamertag</h3>
+<h3>Search For Your Gamertag</h3>
 <div>
-  <input id="gamertag-input" type="text"> <input type="radio" name="platform" value="1"> XBL <input type="radio" name="platform" value="2"> PSN
+  <input id="gamertag-input" type="text" value="cougar chas3r"> <input type="radio" name="platform" value="1" checked> XBL <input type="radio" name="platform" value="2"> PSN
   <button id="gamertag-search">Search</button>
 </div>
-<% end %>
+
+<div id="chars" style="display: none">
+</div>
 
 <!-- Super simple script for searching -->
 <script>
+  $platform_pic = $("#platform-pic");
+  $gamertag = $("#gamertag");
+
   $("#gamertag-search").on("click", function(){
-    window.location.href = "/?gamertag=" + $("#gamertag-input").val() + "&platform=" + $("input[name=platform]:checked").val();
+    //window.location.href = "/?gamertag=" + $("#gamertag-input").val() + "&platform=" + $("input[name=platform]:checked").val();
+    //var url = 'players/' + $("#gamertag").val() + "/" + $("input[name=platform]:checked").val()
+    $.get('players/getplayer', { gamertag: $("#gamertag-input").val(), platform: $("input[name=platform]:checked").val() }, function(response) {
+      var player = response.player
+      $platform_pic.attr('src', 'http://www.bungie.net' + player.icon_path);
+      $gamertag.text(player.display_name);
+
+      var html = "";
+      $.each(player.characters, function() {
+        html += "<div class='character' data-cid='" + this.character_id + "' style='background-image: url(" + this.background + ")'>";
+        html += "<div class='emblem'><img height='87' src='" + this.emblem + "'></div>";
+        html += "<div class='details'><h2>" + this.cls + "</h2><h5>" + this.race + "</h5></div>";
+        html += "<div class='levels'><span class='baselvl'>" + this.base_level + "</span><span class='light'>" + this.light_level + "</span></div>";
+        html += "</div>"
+      });
+      $("#chars").append(html);
+      $("#chars").show();
+      console.log(player);
+    });
   });
 </script>

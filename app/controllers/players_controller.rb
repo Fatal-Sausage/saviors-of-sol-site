@@ -12,4 +12,9 @@ class PlayersController < ApplicationController
     @player = Player.show_player(params[:id])
   end
 
+  def getplayer
+    @player = Destiny.search_for_player(params[:platform], params[:gamertag])
+    render json: { player: @player }
+  end
+
 end
