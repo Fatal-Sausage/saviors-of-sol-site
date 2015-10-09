@@ -3,25 +3,33 @@ require 'uri'
 class Player
   include BungieReadable
 
-  @@player_search_url = "https://www.bungie.net/platform/User/SearchUsersPaged/" #searchTerm/page/
-  @@player_show_url = "https://www.bungie.net/platform/User/GetBungieAccount/" #membershipID/type/""
+  attr_reader :icon_path, :membership_id, :membership_type, :display_name, :characters
 
-  def self.format_search_url(search_term, page)
-    URI.escape(@@player_search_url + "#{search_term}/#{page}/")
+  def initialize(icon_path, membership_id, membership_type, display_name)
+    @icon_path = icon_path
+    @membership_id = membership_id
+    @membership_type = membership_type
+    @display_name = display_name
+    @characters = getchars
   end
 
-  def self.format_show_url(membershipId, membershipType)
-    URI.escape(@@player_show_url + "#{membershipId}/#{membershipType}/")
-  end
-
-  def self.search_players(search_term, page)
-    data = get_data_from_api(format_search_url(search_term, page))
-    data["Response"]["results"]
-  end
-
-  def self.show_player(membership_id, membershipType = 254)
-    data = get_data_from_api(format_show_url(membership_id, membershipType))
-    data["Response"]
+  def getchars
+    url = "#{@membership_type}/Account/#{@membership_id}"
+    data = get_data_from_api(url)
+    characters = {}
+    img_base = "http://www.bungie.net/"
+    data["Response"]["data"]["characters"].map do |char|
+      character_id = char["characterBase"]["characterId"]
+      light_level = char["characterBase"]["powerLevel"]
+      base_level = char["baseCharacterLevel"]
+      emblem = img_base + char["emblemPath"]
+      background = img_base + char["backgroundPath"]
+      race_hash = char["characterBase"]["raceHash"]
+      sex_hash = char["characterBase"]["genderHash"]
+      class_hash = char["characterBase"]["classHash"]
+      char_data = [character_id, light_level, base_level, emblem, background, race_hash, sex_hash, class_hash]
+      Character.new(character_id, light_level, base_level, emblem, background, @membership_id, @membership_type, class_hash, race_hash, sex_hash)
+    end
   end
 
 end

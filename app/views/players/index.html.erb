@@ -1,23 +1,38 @@
-<h4>Players</h4>
-
-<% if @players %>
-<ul>
-  <% @players.each do |p| %>
-    <li><%= link_to p["displayName"], player_path(p["membershipId"]) %></a></li>
-  <% end %>
-</ul>
-<% else %>
-  <h3>Search For Your Gamertag</h3>
-<% end %>
+<h3>Search For Your Gamertag</h3>
 <div>
-  <input id="gamertag-input" type="text">
+  <input id="gamertag-input" type="text" value="cougar chas3r"> <input type="radio" name="platform" value="1" checked> XBL <input type="radio" name="platform" value="2"> PSN
   <button id="gamertag-search">Search</button>
+</div>
+
+<div id="chars" style="display: none">
+  <div id="charbox"></div>
 </div>
 
 <!-- Super simple script for searching -->
 <script>
+  $platform_pic = $("#platform-pic");
+  $gamertag = $("#gamertag");
+
   $("#gamertag-search").on("click", function(){
-    window.location.href = "/?gamertag=" + $("#gamertag-input").val();
+    //window.location.href = "/?gamertag=" + $("#gamertag-input").val() + "&platform=" + $("input[name=platform]:checked").val();
+    //var url = 'players/' + $("#gamertag").val() + "/" + $("input[name=platform]:checked").val()
+    $.get('players/getplayer', { gamertag: $("#gamertag-input").val(), platform: $("input[name=platform]:checked").val() }, function(response) {
+      var player = response.player
+      console.log(player);
+      $platform_pic.attr('src', 'http://www.bungie.net' + player.icon_path);
+      $gamertag.text(player.display_name);
+
+      var html = "";
+
+      $.each(player.characters, function() {
+        html += "<div class='character' data-cid='" + this.character_id + "' style='background-image: url(" + this.background + ")'>";
+        html += "<div class='emblem'><img height='87' src='" + this.emblem + "'></div>";
+        html += "<div class='details'><h2>" + this.cls + "</h2><h5>" + this.race + "</h5></div>";
+        html += "<div class='levels'><span class='baselvl'>" + this.base_level + "</span><span class='light'>" + this.light_level + "</span></div>";
+        html += "</div>"
+      });
+      $("#charbox").html(html);
+      $("#chars").show();
+    });
   });
 </script>
-
