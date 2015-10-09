@@ -8,7 +8,7 @@ module BungieReadable
 
   module ClassMethods
     BASE_URL = "http://www.bungie.net/Platform/Destiny/"
-    def get_data_from_api(url)
+    def self.get_data_from_api(url)
       full_url = BASE_URL + url
       HTTParty.get full_url, headers: { "X-API-KEY" => "57559c5a83f04bb08e874e783022caa3" }
     end

@@ -7,8 +7,16 @@
   <li><%= @player.membership_id %></li>
   <li><%= @player.membership_type %></li>
 </ul>
-  <% @player.characters.each do |c| %>
-    <li><%= c.character_id %></li>
+  <%#= @player.characters %>
+  <% @player.characters.each do |key, val| %>
+    <ul>
+      <li> <%= val.character_id %></li>
+        <ul>
+          <li> <%= val.light_level %></li>
+          <li> <img src="<%= val.background %>"></li>
+        </ul>
+      </li>
+    </ul>
   <% end %>
 <% else %>
   <h3>Search For Your Gamertag</h3>
