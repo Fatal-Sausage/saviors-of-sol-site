@@ -1,29 +1,30 @@
-require 'uri'
-
 class Character
-  include BungieReadable
-
-  @@character_url = "https://www.bungie.net/platform/destiny/"# {membershiptype}/account/{destinymembershipid}/character/{characterid}"
   
-  attr_reader :minutes_played_total, :power_level
+  attr_reader :character_id, :light_level, :base_level, :emblem, :background, :membership_id, :membership_type, :cls, :race, :sex
 
-  def initialize(membership_type, membership_id, character_id)
-    @membership_type = membership_type
-    @membership_id = membership_id
-    @character_id = character_id
-    load_character
+  @@type_hashes = {
+    '898834093' => 'Exo',
+    '3887404748' => 'Human',
+    '2803282938' => 'Awoken',
+    '3111576190' => 'Male',
+    '2204441813' => 'Female',
+    '671679327' => 'Hunter',
+    '3655393761' => 'Titan',
+    '2271682572' => 'Warlock'
+  }
+
+  # Initialize takes a hash so we can pass the values we want to save in any order we want.
+  # i.e Character.new(light_level: 34, background: "/img/bground.png", race: "Male")
+  def initialize(attributes = {})
+    @character_id = attributes[:character_id]
+    @light_level = attributes[:light_level]
+    @base_level = attributes[:base_level]
+    @emblem = attributes[:emblem]
+    @background = attributes[:background]
+    @membership_id = attributes[:membership_id]
+    @membership_type = attributes[:membership_type]
+    @cls = @@type_hashes[attributes[:cls].to_s]
+    @race = @@type_hashes[attributes[:race].to_s]
+    @sex = @@type_hashes[attributes[:sex].to_s]
   end
-
-  def format_url
-    URI.escape(@@character_url + "#{@membership_type}/account/#{@membership_id}/character/#{@character_id}/")
-  end
-
-  def load_character
-    # debugger
-    data = get_data_from_api(format_url)
-    character_data = data["Response"]["data"]
-    @minutes_played_total = character_data["characterBase"]["minutesPlayedTotal"]
-    @power_level = character_data["characterBase"]["powerLevel"] 
-  end
-
 end

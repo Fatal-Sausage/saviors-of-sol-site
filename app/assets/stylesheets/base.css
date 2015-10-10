@@ -1,0 +1,61 @@
+.character {
+  height: 96px;
+  width: 474px;
+  color: white;
+  position: relative;
+  max-width: 100%;
+}
+
+.character:hover {
+  cursor: pointer;
+}
+
+.character + .character {
+  margin-top: 10px;
+  clear: both;
+}
+
+.character.selected {
+  border: 4px solid rgb(245,220,86);
+}
+
+.details {
+  margin-top: -8px;
+}
+
+.details h2 {
+  margin-bottom: 5px;
+}
+
+.details h5 {
+  margin: 0;
+}
+
+.emblem, .details {
+  float: left;
+}
+
+.levels {
+  position: absolute;
+  right: 10px;
+}
+
+.baselvl {
+  font-size: 50px;
+  display: block;
+}
+
+.light {
+  color: rgb(245, 220, 86);
+  font-size: 20px;
+  position: absolute;
+  right: 7px;
+  bottom: -15px;
+}
+
+.light:before {
+  content: "\2726";
+  display: inline-block;
+  vertical-align: 22%;
+  font-size: 50%;
+}

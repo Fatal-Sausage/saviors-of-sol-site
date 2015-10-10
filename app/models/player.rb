@@ -1,27 +1,38 @@
-require 'uri'
-
 class Player
   include BungieReadable
 
-  @@player_search_url = "https://www.bungie.net/platform/User/SearchUsersPaged/" #searchTerm/page/
-  @@player_show_url = "https://www.bungie.net/platform/User/GetBungieAccount/" #membershipID/type/
+  attr_reader :icon_path, :membership_id, :membership_type, :display_name, :characters
 
-  def self.format_search_url(search_term, page)
-    URI.escape(@@player_search_url + "#{search_term}/#{page}/")
+  def initialize(attributes = {})
+    @icon_path = attributes[:icon_path]
+    @membership_id = attributes[:membership_id]
+    @membership_type = attributes[:membership_type]
+    @display_name = attributes[:display_name]
+    @characters = characters
   end
 
-  def self.format_show_url(membershipId, membershipType)
-    URI.escape(@@player_show_url + "#{membershipId}/#{membershipType}/")
+  def img_base
+    "http://www.bungie.net/"
   end
 
-  def self.search_players(search_term, page)
-    data = get_data_from_api(format_search_url(search_term, page))
-    data["Response"]["results"]
-  end
-
-  def self.show_player(membership_id, membershipType = 254)
-    data = get_data_from_api(format_show_url(membership_id, membershipType))
-    data["Response"]
+  # Method named characters for easier readablity
+  # i.e Player.first.characters => array of characters
+  def characters
+    data = get_data_from_api Player.format_url(@membership_type, "Account", @membership_id)
+    data["Response"]["data"]["characters"].map do |character|
+      Character.new({
+        character_id: character["characterBase"]["characterId"],
+        light_level: character["characterBase"]["powerLevel"],
+        base_level: character["baseCharacterLevel"],
+        emblem: (img_base + character["emblemPath"]),
+        background: (img_base + character["backgroundPath"]),
+        race: character["characterBase"]["raceHash"],
+        sex: character["characterBase"]["genderHash"],
+        cls: character["characterBase"]["classHash"],
+        membership_id: @membership_id,
+        membership_type: @membership_type
+      })
+    end
   end
 
 end
