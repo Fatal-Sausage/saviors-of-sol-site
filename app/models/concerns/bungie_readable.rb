@@ -25,6 +25,17 @@ module BungieReadable
     def format_url(*args)
       URI.escape(BASE_URL + args.join("/"));
     end
+
+    def get_cookies_from_string(cookie_string)
+      cookies_hash = {}
+      cookies_array = cookie_string.split(", ")
+      cookies_array.each do |cookie|
+        cookie_name = cookie.split("\;")[0]
+        cookie_split = cookie_name.split("=")
+        cookies_hash[cookie_split[0]] = cookie_split[1..-1].join("=")
+      end
+      cookies_hash
+    end
   end
 
 end

@@ -26,6 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # We use this to make API requests from the server
 gem 'httparty'
 
+gem 'rest-client'
+
 # Mysql2 adapter for database use
 gem 'mysql2', '~> 0.3.13'
 
